@@ -8,8 +8,8 @@ const reviewsDiv = document.getElementById("reviews");
 
 const showReviews = () => {
   if (
-    nameField.value === "" 
-    gradeField.value === "" 
+    nameField.value === "" ||
+    gradeField.value === "" ||
     descriptionField.value === ""
   ) {
     return null;
