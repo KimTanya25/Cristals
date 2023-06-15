@@ -1,5 +1,4 @@
-let review = {};
-const API_URL = "https://6489798f5fa58521caafa928.mockapi.io/reviews";
+const reviews = [];
 
 const nameField = document.getElementById("name");
 const gradeField = document.getElementById("grade");
@@ -7,55 +6,33 @@ const descriptionField = document.getElementById("description");
 const addReviewButton = document.getElementById("add-review");
 const reviewsDiv = document.getElementById("reviews");
 
-const handleGetReviews = () => {
-  let xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      let reviews = JSON.parse(this.responseText);
-      let div = `<div>				
-				 </div>`;
-
-      for (let review of reviews) {
-        div += `<div class="review"> 
-		  <p>Name: ${review.name} </p>
-		  <p>Desciption: ${review.description}</p>
-		  <p>Grade: ${review.grade}</p>   
-		  </div>`;
-      }
-      reviewsDiv.innerHTML = div;
-    }
-  };
-  xhttp.open("GET", API_URL, true);
-  xhttp.send();
-};
-
-const handlePostReview = () => {
-  let post = JSON.stringify(review);
-  const url = API_URL;
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
-  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-  xhr.send(post);
-  xhr.onload = function () {
-    if (xhr.status === 201) {
-      console.log("Post successfully created!");
-    }
-  };
-};
-
-const handleCreateReview = () => {
-  review = {
+const showReviews = () => {
+  if (
+    nameField.value === "" 
+    gradeField.value === "" 
+    descriptionField.value === ""
+  ) {
+    return null;
+  }
+  reviews.push({
     name: nameField.value,
     grade: gradeField.value,
     description: descriptionField.value,
-  };
+  });
 
-  handlePostReview();
+  let div = `<div>        
+        </div>`;
 
-  review = {};
-  nameField.value = "";
-  gradeField.value = "";
-  descriptionField.value = "";
+  for (let r of reviews) {
+    div += `<div class="review"> 
+     <p>Name: ${r.name} </p>
+     <p>Desciption: ${r.description}</p>
+     <p>Grade 1-5:${r.grade}</p>       
+  
+  </div>`;
+  }
+
+  reviewsDiv.innerHTML = div;
 };
 
 const dt = new Date();
@@ -66,8 +43,4 @@ document.getElementById("datetime").innerHTML =
   "/" +
   dt.getFullYear();
 
-addReviewButton.addEventListener("click", () => {
-  handleCreateReview();
-  handleGetReviews();
-});
-handleGetReviews();
+addReviewButton.addEventListener("click", showReviews);
