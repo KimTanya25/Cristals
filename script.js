@@ -20,27 +20,27 @@ const showReviews = () => {
     description: descriptionField.value,
   });
 
-  let div = `<div>        
-        </div>`;
+  let div = `<div>				
+				</div>`;
 
   for (let r of reviews) {
     div += `<div class="review"> 
-     <p>Name: ${r.name} </p>
-     <p>Desciption: ${r.description}</p>
-     <p>Grade 1-5:${r.grade}</p>       
+		 <p>Name: ${r.name} </p>
+		 <p>Desciption: ${r.description}</p>
+		 <p>Grade 1-5:${r.grade}</p>       
   
-  </div>`;
+	</div>`;
   }
 
   reviewsDiv.innerHTML = div;
 };
 
-const dt = new Date();
-document.getElementById("datetime").innerHTML =
-  ("0" + (dt.getMonth() + 1)).slice(-2) +
-  "/" +
-  ("0" + dt.getDate()).slice(-2) +
-  "/" +
-  dt.getFullYear();
+// const dt = new Date();
+// document.getElementById("datetime").innerHTML =
+//   ("0" + (dt.getMonth() + 1)).slice(-2) +
+//   "/" +
+//   ("0" + dt.getDate()).slice(-2) +
+//   "/" +
+//   dt.getFullYear();
 
 addReviewButton.addEventListener("click", showReviews);
